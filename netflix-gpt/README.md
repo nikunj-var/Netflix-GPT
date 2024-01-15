@@ -6,6 +6,9 @@
 - Configured Tailwind CSS
 - Header
 - Login Form
+- SignUp form
+- Form Validation
+- useRef Hook
 
 ...
 

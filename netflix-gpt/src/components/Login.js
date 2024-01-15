@@ -1,8 +1,24 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Header from "./Header";
+import { checkValidateData } from "../utils/validate";
 
 const Login = () => {
   const [isSignIn, setIsSignIn] = useState(true);
+  const [errorMessage, setErrorMessage] = useState(null);
+  const email = useRef(null);
+  const password = useRef(null);
+
+  const handleButtonClick = () => {
+    // Validate the form data
+    // checkValidateData
+
+    const message = checkValidateData(
+      email.current.value,
+      password.current.value
+    );
+    setErrorMessage(message);
+  };
+
   const handleToggleSignIn = () => {
     setIsSignIn(!isSignIn);
   };
@@ -15,30 +31,45 @@ const Login = () => {
       </div>
       <div>
         {" "}
-        <form className="text-white absolute w-4/12 p-12  bg-black bg-opacity-75 mx-auto right-0 left-0  my-20 ">
+        <form
+          className="text-white absolute w-4/12 p-12  bg-black bg-opacity-75 mx-auto right-0 left-0  my-20 "
+          onSubmit={(e) => {
+            e.preventDefault();
+          }}
+        >
           <h1 className="font-bold text-3xl py-2 m-2">
             {isSignIn ? "Sign in" : "Sign Up"}
           </h1>
-         {!isSignIn && <input
-            type="text"
-            placeholder="Full Name"
-            className="p-3 m-2 bg-gray-700 w-full rounded"
-          />}
+          {!isSignIn && (
+            <input
+              type="text"
+              placeholder="Full Name"
+              className="p-3 m-2 bg-gray-700 w-full rounded"
+            />
+          )}
           <input
             type="text"
             placeholder="Email Address"
             className="p-3 m-2 bg-gray-700 w-full rounded"
+            ref={email}
           />
           <input
             type="password"
             placeholder="Password"
             className="p-3 m-2 w-full bg-gray-700 rounded"
+            ref={password}
           />
-          <button className="p-3 m-2 mt-5 mb-32 bg-red-500 w-full rounded">
+          <p className=" text-red-600 text-bold m-2">{errorMessage}</p>
+          <button
+            className="p-3 m-2 mt-5 mb-32 bg-red-500 w-full rounded"
+            onClick={handleButtonClick}
+          >
             {isSignIn ? "Sign in" : "Sign Up"}
           </button>
           <p className="p-3 m-2 cursor-pointer" onClick={handleToggleSignIn}>
-            {isSignIn ? "New to Netflix? Sign Up Now" : "Already registered? Sign In Now" }
+            {isSignIn
+              ? "New to Netflix? Sign Up Now"
+              : "Already registered? Sign In Now"}
           </p>
         </form>
       </div>
@@ -46,3 +77,5 @@ const Login = () => {
   );
 };
 export default Login;
+
+// use formik to create forms

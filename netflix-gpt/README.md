@@ -14,6 +14,7 @@
 - Create SignUp User Account
 - Implement Sign In user Api
 - Created Redux Store with userSlice
+- write onAuthChange on root (either on Body or App)
 
 ...
 

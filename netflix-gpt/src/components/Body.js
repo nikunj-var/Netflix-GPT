@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux";
 import { addUser, removeUser } from "../utils/userSlice";
 const Body = () => {
   const dispatch = useDispatch();
+  const auth = getAuth();
   // to navigate user from one page to another page
 
   const appRouter = createBrowserRouter([
@@ -20,17 +21,7 @@ const Body = () => {
     },
   ]);
   // This is called when user do signin/signup and signout.
-  useEffect(() => {
-    const auth = getAuth();
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        const { uid, email, displayName } = user;
-        dispatch(addUser({ uid: uid, email: email, displayname: displayName }));
-      } else {
-        dispatch(removeUser());
-      }
-    });
-  }, []);
+ 
   return (
     <div>
       <RouterProvider router={appRouter} />

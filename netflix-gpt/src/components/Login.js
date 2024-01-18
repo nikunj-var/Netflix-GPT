@@ -1,16 +1,19 @@
 import { useRef, useState } from "react";
 import Header from "./Header";
 import { checkValidateData } from "../utils/validate";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth } from "../utils/firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+
 const Login = () => {
+  const dispatch = useDispatch();
   const [isSignIn, setIsSignIn] = useState(true);
   const [errorMessage, setErrorMessage] = useState(null);
+  const name = useRef(null);
   const email = useRef(null);
   const password = useRef(null);
-  const navigate = useNavigate();
+
   const handleButtonClick = () => {
     // Validate the form data
     // checkValidateData
@@ -32,8 +35,22 @@ const Login = () => {
         .then((userCredential) => {
           // Signed up
           const user = userCredential.user;
+          updateProfile(user, {
+            displayName: name.current.value,
+            photoURL: "https://avatars.githubusercontent.com/u/84069962?v=4",
+          })
+            .then(() => {
+              const { uid, email, displayName, photoURL } = auth.currentUser;
+              dispatch({
+                uid: uid,
+                email: email,
+                displayName: displayName,
+                photoURL: photoURL,
+              });
+            })
+            .catch((error) => console.log(error));
           console.log(user);
-          navigate("/browse");
+
           // ...
         })
         .catch((error) => {
@@ -53,7 +70,6 @@ const Login = () => {
           // Signed in
           const user = userCredential.user;
           console.log(user);
-          navigate("/browse");
         })
         .catch((error) => {
           const errorCode = error.code;
@@ -88,6 +104,7 @@ const Login = () => {
               type="text"
               placeholder="Full Name"
               className="p-3 m-2 bg-gray-700 w-full rounded"
+              ref={name}
             />
           )}
           <input

@@ -15,6 +15,9 @@
 - Implement Sign In user Api
 - Created Redux Store with userSlice
 - write onAuthChange on root (either on Body or App)
+- Implement signout
+- Update Profiles
+- Fetch from TMDB Movies
 
 ...
 

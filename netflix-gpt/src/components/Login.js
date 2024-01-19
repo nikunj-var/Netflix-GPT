@@ -5,6 +5,8 @@ import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth } from "../utils/firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { useDispatch } from "react-redux";
+import { USER_AVATAR } from "../utils/constants";
+import { addUser } from "../utils/userSlice";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -37,16 +39,18 @@ const Login = () => {
           const user = userCredential.user;
           updateProfile(user, {
             displayName: name.current.value,
-            photoURL: "https://avatars.githubusercontent.com/u/84069962?v=4",
+            photoURL: USER_AVATAR,
           })
             .then(() => {
               const { uid, email, displayName, photoURL } = auth.currentUser;
-              dispatch({
-                uid: uid,
-                email: email,
-                displayName: displayName,
-                photoURL: photoURL,
-              });
+              dispatch(
+                addUser({
+                  uid: uid,
+                  email: email,
+                  displayName: displayName,
+                  photoURL: photoURL,
+                })
+              );
             })
             .catch((error) => console.log(error));
           console.log(user);

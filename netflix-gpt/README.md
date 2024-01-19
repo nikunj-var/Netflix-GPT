@@ -18,6 +18,12 @@
 - Implement signout
 - Update Profiles
 - Fetch from TMDB Movies
+- TMDB(Themoviedb)
+- Register TMDB API and create an app & access the token
+- Get data from TMDB now playing movies
+
+
+
 
 ...
 

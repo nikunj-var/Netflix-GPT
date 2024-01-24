@@ -48,7 +48,6 @@ const Header = () => {
       />
       {user && (
         <div className="flex">
-       
           <img src={user?.photoURL} className=" w-12 h-12 my-8 " />
           <button onClick={handleSignOut} className="text-white text-xl">
             Sign Out

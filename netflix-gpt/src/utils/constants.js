@@ -12,3 +12,5 @@ export const API_OPTIONS = {
       "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIzYzMyOGZkNWY5OGEyZjE3ZjUxYzY3ZmYyOTEwZGExNSIsInN1YiI6IjY1YTkxYmZjMGU1YWJhMDEyOTdkZjFlNCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.OF059pe_YWKCcL8UcUzPbrAQSJmaLcnuEKgVonCNnRw",
   },
 };
+
+export const YOUTUBE_LINK = "https://www.youtube.com/embed/";

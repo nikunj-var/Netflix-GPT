@@ -14,6 +14,7 @@ const MainContainer = () => {
   }
 
   const mainMovie = movies?.results[0];
+  
   const { original_title, overview, id } = mainMovie;
 
   return (

@@ -6,11 +6,16 @@ import { useEffect } from "react";
 import { addUser, removeUser } from "../utils/userSlice";
 import { onAuthStateChanged } from "firebase/auth";
 import { LOGO } from "../utils/constants";
+import { toggleGptSearch } from "../utils/GptSlice";
+
+
 const Header = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const user = useSelector((store) => store.user);
+  const gptSearch = useSelector((store) => store.gpt.showGptSearch);
+
   const handleSignOut = () => {
     signOut(auth)
       .then(() => {})
@@ -40,14 +45,21 @@ const Header = () => {
     // unsubscribe when component unmounts
     return () => unsubscribe();
   }, []);
+  const handleGptSearchClick = () => {
+    // Toggle Gpt Search
+    dispatch(toggleGptSearch());
+  };
   return (
-    <div className="absolute px-8 w-screen py-2 bg-gradient-to-b from-black flex justify-between">
-      <img
-        className="w-44"
-        src={LOGO}
-      />
+    <div className="absolute px-8 w-screen py-2 bg-gradient-to-b from-black flex justify-between z-10">
+      <img className="w-44" src={LOGO} />
       {user && (
         <div className="flex">
+          <button
+            className="py-2 px-4 mx-4 my-8 h-10 bg-red-500 text-white"
+            onClick={handleGptSearchClick}
+          >
+            Search GPT
+          </button>
           <img src={user?.photoURL} className=" w-12 h-12 my-8 " />
           <button onClick={handleSignOut} className="text-white text-xl">
             Sign Out
